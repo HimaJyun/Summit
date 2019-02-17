@@ -1,3 +1,20 @@
 {{- partial "summit/sidebar_before.html" . -}}
-
+{{- with .Site.Params.navigation.sidebar -}}
+{{- $tmp := newScratch -}}
+<nav class="sidebar-navi">
+    <ul>
+    {{- range . -}}
+        <li class="sidebar-item">
+            <span class="sidebar-item-title">{{ .title }}</span>
+            <ul>
+                {{- range .item -}}
+                    {{- partial "snippets/menu_item.html" (dict "Site" $.Site "item" . "result" $tmp) -}}
+                    <li><a href="{{ $tmp.Get "link" }}">{{ $tmp.Get "text" }}</a></li>
+                {{- end -}}
+            </ul>
+        </li>
+    {{- end -}}
+    </ul>
+</nav>
+{{- end -}}
 {{- partial "summit/sidebar_after.html" . -}}

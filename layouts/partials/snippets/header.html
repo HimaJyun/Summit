@@ -4,24 +4,12 @@
         <p class="header-title-catchphrase">{{ .Site.Params.catchphrase }}</p>
     </div>
     {{- with .Site.Params.navigation.header -}}
+    {{- $tmp := newScratch -}}
     <nav class="header-navi">
         <ul>
         {{- range . -}}
-            {{- $text := "" -}}
-            {{- $link := "" -}}
-            {{- with .page -}}
-                {{- with $.Site.GetPage . -}}
-                    {{- $text = .LinkTitle -}}
-                    {{- $link = .Permalink -}}
-                {{- end -}}
-            {{- end -}}
-            {{- with .text -}}
-                {{- $text = . -}}
-            {{- end -}}
-            {{- with .link -}}
-                {{- $link = . -}}
-            {{- end -}}
-            <li><a href="{{$link}}">{{$text}}</a></li>
+            {{- partial "snippets/menu_item.html" (dict "Site" $.Site "item" . "result" $tmp) -}}
+            <li><a href="{{ $tmp.Get "link" }}">{{ $tmp.Get "text" }}</a></li>
         {{- end -}}
         </ul>
     </nav>

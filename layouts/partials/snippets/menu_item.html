@@ -1,0 +1,16 @@
+{{- /* {{ partial "snippets/menu_item.html" (dict "Site" $.Site "item" item "result" newScratch ) }} */ -}}
+
+{{- with .item.page -}}
+    {{- with $.Site.GetPage . -}}
+        {{- $.result.Set "text" .LinkTitle -}}
+        {{- $.result.Set "link" .Permalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{- with .item.text -}}
+    {{- $.result.Set "text" . -}}
+{{- end -}}
+
+{{- with .item.link -}}
+    {{- $.result.Set "link" . -}}
+{{- end -}}

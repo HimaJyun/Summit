@@ -26,3 +26,22 @@ footer = "{{catchphrase}}<br>&copy; {{year}} <a href=\"/\">FooBar</a>"
     page = "/_page.md"
     text = "override text"
 ```
+
+### Sidebar navigation
+```toml
+[[params.navigation.sidebar]]
+    title = "sidebar 1"
+    [[params.navigation.sidebar.item]]
+        page = "/_index.md"
+    [[params.navigation.sidebar.item]]
+        text = "Top page"
+        link = "/"
+    [[params.navigation.sidebar.item]]
+        page = "/_page.md"
+        text = "override text"
+[[params.navigation.sidebar]]
+    title = "sidebar 2"
+    [[params.navigation.sidebar.item]]
+        text = "page"
+        link = "/"
+```
