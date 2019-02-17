@@ -1,0 +1,7 @@
+{{- if .node.Parent -}}
+    {{- partial "snippets/breadcrumb.html" (dict "node" .node.Parent "scratch" .scratch) -}}
+{{- else if not .node.IsHome -}}
+    {{- partial "snippets/breadcrumb.html" (dict "node" .node.Site.Home "scratch" .scratch) -}}
+{{- end -}}
+
+{{- .scratch.Add "list" .node -}}
