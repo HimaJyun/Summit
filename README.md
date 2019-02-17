@@ -45,3 +45,15 @@ footer = "{{catchphrase}}<br>&copy; {{year}} <a href=\"/\">FooBar</a>"
         text = "page"
         link = "/"
 ```
+
+### Disable meta description
+```toml
+[params]
+outDescription = false
+```
+
+### noindex
+```toml
+[params]
+noindex = true
+```
