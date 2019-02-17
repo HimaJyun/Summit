@@ -14,3 +14,15 @@ catchphrase = "Your site catchphrase"
 [params]
 footer = "{{catchphrase}}<br>&copy; {{year}} <a href=\"/\">FooBar</a>"
 ```
+
+### Header navigation
+```toml
+[[params.navigation.header]]
+    page = "/_index.md"
+[[params.navigation.header]]
+    text = "Top page"
+    link = "/"
+[[params.navigation.header]]
+    page = "/_page.md"
+    text = "override text"
+```
