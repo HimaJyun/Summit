@@ -1,0 +1,37 @@
+<head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    {{ with (.Page.Scratch.Get "robots") -}}
+        <meta name="robots" content="{{.}}">
+    {{ end -}}
+
+    <title>{{ .Page.Scratch.Get "title" }}</title>
+    {{ with (.Page.Scratch.Get "description") -}}
+        <meta name="description" content="{{.}}">
+    {{ end -}}
+
+    <meta property="og:title" content="{{ .Page.Scratch.Get "title" }}">
+    {{ with (.Page.Scratch.Get "ogDescription") -}}
+        <meta property="og:description" content="{{.}}">
+    {{ end -}}
+
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:type" content="{{ if .IsHome }}website{{else}}article{{ end }}">
+    {{ with (.Param "image") -}}
+        <meta property="og:image" content="{{ . | absURL }}">
+    {{ end -}}
+    <meta name="twitter:card" content="summary_large_image">
+
+    {{ with .Permalink -}}
+        <meta property="og:url" content="{{ . }}">
+        <link rel="canonical" href="{{.}}">
+    {{ end -}}
+
+    <link rel="icon" href="{{ "/favicon.ico" | absURL }}">
+    <link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | absURL }}">
+    {{- $style := resources.Get "css/summit.scss" | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" integrity="{{ $style.Data.Integrity }}">
+
+    {{- partial "summit/head.html" . }}
+</head>

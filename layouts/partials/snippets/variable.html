@@ -1,0 +1,9 @@
+{{- $is404 := (eq .Kind "404") -}}
+
+{{- .Page.Scratch.Set "title" "" -}}
+{{- with .Title -}}
+    {{- $.Page.Scratch.Add "title" (printf "%s | " .) -}}
+{{- end -}}
+{{- .Page.Scratch.Add "title" .Site.Title -}}
+
+{{- partial "summit/variable.html" . -}}
