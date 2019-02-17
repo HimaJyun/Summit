@@ -1,0 +1,30 @@
+{{- $content := .Content -}}
+
+{{- $useToc := (.Param "toc" | default true) -}}
+{{- $header := slice -}}
+{{- if $useToc -}}
+    {{- $header = (findRE "<h[1-6].*?>(?:.|\n)*?</h[1-6]>" $content) -}}
+    {{- if le (len $header) (.Param "tocMinimum" | default 2) -}}
+        {{- $useToc = false -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if $useToc -}}
+    {{- $toc := .TableOfContents -}}
+    {{- with (.Param "tocTitle") -}}
+        {{- $toc = printf `<p class="contents-toc-title">%s</p>%s` . $toc -}}
+    {{- end -}}
+    {{- $toc = printf `<div class="contents-toc">%s</div>` $toc -}}
+
+    {{- if (.Param "tocMove" | default false) -}}
+        {{- $firstH := index $header 0 -}}
+        {{- if ne $firstH nil -}}
+            {{- $newH := printf `%s%s` $toc $firstH -}}
+            {{- $content = (replace $content $firstH $newH | safeHTML) -}}
+        {{- end -}}
+    {{- else -}}
+        {{- $toc | safeHTML -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $content -}}

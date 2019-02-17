@@ -46,6 +46,15 @@ footer = "{{catchphrase}}<br>&copy; {{year}} <a href=\"/\">FooBar</a>"
         link = "/"
 ```
 
+### Advanced ToC
+```toml
+[params]
+toc = true
+tocMove = true
+tocTitle = "index"
+tocMinimum = 2
+```
+
 ### Disable meta description
 ```toml
 [params]
