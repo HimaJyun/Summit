@@ -6,7 +6,7 @@
     {{- range . -}}
         <li class="sidebar-item">
             <span class="sidebar-item-title">{{ .title }}</span>
-            <ul>
+            <ul class="sidebar-item-link">
                 {{- range .item -}}
                     {{- partial "snippets/menu_item.html" (dict "Site" $.Site "item" . "result" $tmp) -}}
                     <li><a href="{{ $tmp.Get "link" }}">{{ $tmp.Get "text" }}</a></li>
