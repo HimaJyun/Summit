@@ -34,18 +34,41 @@
     {{- with .Params.categories -}}
     <div class="contents-info-categorys">
         <span class="contents-info-categorys-text">Category:&nbsp;</span>{{- /**/ -}}
-        {{- range . -}}
+        <span class="contents-info-categorys-value">{{- range . -}}
             <a rel="tag" href="{{ printf "/categories/%s/" (urlize .) | absURL }}">{{ . }}</a>&#32;
-        {{- end -}}
+        {{- end -}}</span>
     </div>
     {{- end -}}
 
     {{- with .Params.tags -}}
         <div class="contents-info-tags">
             <span class="contents-info-tags-text">Tag:&nbsp;</span>{{- /**/ -}}
-            {{- range . }}
+            <span class="contents-info-tags-value">{{- range . -}}
                 <a rel="tag" href="{{ printf "/tags/%s/" (urlize .) | absURL }}">{{ . }}</a>&#32;
-            {{ end }}
+            {{- end -}}</span>
         </div>
+    {{- end -}}
+
+    {{- if .GitInfo -}}
+        {{- with .Site.Params.pageinfo.commit -}}
+            <div class="contents-info-commit">
+                <span class="contents-info-commit-text">Commit:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-commit-value">{{ replace . "{{hash}}" $.GitInfo.Hash | safeHTML }}</span>
+            </div>
+        {{- end -}}
+
+        {{- with .Site.Params.pageinfo.change -}}
+            <div class="contents-info-change">
+                <span class="contents-info-change-text">Change:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-change-value">{{ replace . "{{file}}" $.File.Path | safeHTML }}</span>
+            </div>
+        {{- end -}}
+
+        {{- if (.Site.Params.pageinfo.subject | default false) -}}
+            <div class="contents-info-subject">
+                <span class="contents-info-subject-text">Subject:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-subject-value">{{.GitInfo.Subject}}</span>
+            </div>
+        {{- end -}}
     {{- end -}}
 </div>

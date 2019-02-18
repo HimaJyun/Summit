@@ -46,6 +46,14 @@ footer = "{{catchphrase}}<br>&copy; {{year}} <a href=\"/\">FooBar</a>"
         link = "/"
 ```
 
+### Git page info
+```toml
+[params.pageinfo]
+    commit = "<a href=\"https://github.com/your-name/repo-name/commit/{{hash}}\">{{hash}}</a>"
+    change = "<a href=\"https://github.com/your-name/repo-name/commits/master/content/{{file}}\">View on GitHub</a>"
+    subject = true
+```
+
 ### Advanced ToC
 ```toml
 [params]

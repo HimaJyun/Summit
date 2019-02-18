@@ -1,17 +1,17 @@
 <ol class="contents-breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
-    {{- $node := (.Parent | default .Site.Home) -}}
     {{- $breadcrumb := newScratch -}}
     {{- $breadcrumb.Set "list" slice -}}
-    {{- partial "snippets/breadcrumb_item.html" (dict "node" $node "scratch" $breadcrumb) -}}
+    {{- partial "snippets/breadcrumb_item.html" (dict "node" (.Parent | default .Site.Home) "scratch" $breadcrumb) -}}
 
     {{- $position := 0 -}}
     {{- range ($breadcrumb.Get "list") -}}
-    {{- $position = (add $position 1) -}}
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemtype="http://schema.org/Thing" itemprop="item" href="{{ .Permalink }}">
-            <span itemprop="name">{{ .LinkTitle }}</span>
-        </a>
-        <meta itemprop="position" content="{{ $position }}">
-    </li>
+        {{- $position = (add $position 1) -}}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a itemtype="http://schema.org/Thing" itemprop="item" href="{{ .Permalink }}">
+                <span itemprop="name">{{ .LinkTitle }}</span>
+            </a>
+            <meta itemprop="position" content="{{ $position }}">
+        </li>
     {{- end -}}
+    <li>{{.LinkTitle}}</li>
 </ol>
