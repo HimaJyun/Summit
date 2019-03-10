@@ -1,7 +1,7 @@
 {{ define "main" }}
-<article id="post-{{ .UniqueID }}" class="hentry">
-    <ol class="contents-breadcrumb"><li>{{.LinkTitle}}</li></ol>
+<ol class="contents-breadcrumb"><li>{{.LinkTitle}}</li></ol>
+<article id="post-{{ .UniqueID }}">
     {{- partial "snippets/contents.html" . -}}
-    {{- partial "snippets/page_info.html" . -}}
 </article>
+{{- partial "snippets/page_info.html" . -}}
 {{ end }}
