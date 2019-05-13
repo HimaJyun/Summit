@@ -81,17 +81,35 @@ $contents-margin: 5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @include only-sp {
+        flex-direction: column;
+    }
+
     width: 100%;
     max-width: 120+$contents-margin;
-    margin: 2.5rem auto;
     padding: 0 ($contents-margin/2);
+    margin: {
+        top: 2.5rem;
+        bottom: 5rem;
+        left: auto;
+        right: auto;
+    }
+    @include only-sp {
+        max-width: unset;
+        padding: 0;
+    }
 }
 
 .contents {
     width: $contents-width;
     padding: 1rem;
-    @include contents-block;
     border-radius: 0.3rem;
+    @include contents-block;
+    @include only-sp {
+        width: 100%;
+        margin-bottom: 2.5rem;
+        border-radius: 0;
+    }
 
     h1, h2, h3, h4, h5, h6 {
         border-bottom: solid 0.1rem #aaa;
@@ -177,6 +195,9 @@ $contents-margin: 5rem;
 
 .sidebar {
     width: (100-$contents-width)-$sidebar-space;
+    @include only-sp {
+        width: 100%;
+    }
 
     &-navi ul {
         list-style: none;
@@ -186,9 +207,7 @@ $contents-margin: 5rem;
     &-item {
         @include contents-block;
         border-bottom: 0.1rem #999 solid;
-        margin: 0 {
-            bottom: 1rem;
-        }
+        margin-bottom: 1rem;
         &-title {
             display: block;
             padding: 0.25rem 1rem;
