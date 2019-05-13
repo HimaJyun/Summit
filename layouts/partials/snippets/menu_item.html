@@ -1,0 +1,19 @@
+{{- /* {{ partial "snippets/menu_item.html" (dict "site" $.Site "map" map) }} */ -}}
+{{- $text := "" -}}
+{{- $link := "" -}}
+
+{{- with .map.link -}}
+    {{- $link = . -}}
+{{- end -}}
+
+{{- with .map.page -}}
+    {{- with $.site.GetPage . -}}
+        {{- $text = .LinkTitle -}}
+        {{- $link = .Permalink -}}
+    {{- end -}}
+{{- end -}}
+
+{{- with .map.text -}}
+    {{- $text = . -}}
+{{- end -}}
+{{- return (dict "text" $text "link" $link) -}}

@@ -1,0 +1,24 @@
+{{ define "main" }}
+{{- partial "snippets/breadcrumb.html" . -}}
+<article {{- with .File }} id="post-{{ .UniqueID }}"{{ end }}>
+    {{- $localize := .Site.Data.localize }}
+
+    {{- $title := .Title -}}
+    {{- $term := dict -}}
+    {{- if eq .Type "tags" -}}
+        {{- $title = $localize.tagList | default .Title -}}
+        {{- $term = $localize.tags | default dict -}}
+    {{- else if eq .Type "categories" -}}
+        {{- $title = $localize.categoryList | default .Title -}}
+        {{- $term = $localize.categories | default dict -}}
+    {{- end -}}
+
+    <h1 class="contents-title entry-title">{{$title}}</h1>
+
+    <ul class="contents-termlist">
+        {{- range .Data.Terms.ByCount }}
+            <li><a href="{{ .Page.Permalink }}">{{ index $term .Name | default .Name }}</a> ({{ .Count }})</li>
+        {{- end }}
+    </ul>
+</article>
+{{ end }}

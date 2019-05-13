@@ -1,0 +1,20 @@
+{{- partial "snippets/variable.html" . -}}
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+    {{- partial "theme/head.html" . -}}
+    <body>
+        {{- partialCached "theme/header.html" . -}}
+
+        <div class="wrapper">
+            <main class="contents hentry">
+                {{- block "main" . -}}{{- end -}}
+            </main>
+            <aside class="sidebar">
+                {{- partialCached "theme/sidebar.html" . -}}
+            </aside>
+        </div>
+
+        {{- partialCached "theme/footer.html" . -}}
+        {{- partial "summit/body_end.html" . -}}
+    </body>
+</html>

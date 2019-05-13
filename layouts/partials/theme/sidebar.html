@@ -1,0 +1,19 @@
+{{- partial "summit/sidebar_before.html" . -}}
+{{- with .Site.Params.navigation.sidebar -}}
+<nav class="sidebar-navi">
+    <ul>
+    {{- range . -}}
+        <li class="sidebar-item">
+            <span class="sidebar-item-title">{{ .title }}</span>
+            <ul class="sidebar-item-link">
+                {{- range .item -}}
+                    {{- $value := (partial "snippets/menu_item.html" (dict "site" $.Site "map" .)) -}}
+                    <li><a href="{{ $value.link }}">{{ $value.text }}</a></li>
+                {{- end -}}
+            </ul>
+        </li>
+    {{- end -}}
+    </ul>
+</nav>
+{{- end -}}
+{{- partial "summit/sidebar_after.html" . -}}

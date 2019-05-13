@@ -1,0 +1,8 @@
+{{- with .Param "footer" -}}
+<footer class="footer">
+    {{- $text := . -}}
+    {{- $text := replace $text "{{year}}" now.Year -}}
+    {{- $text := replace $text "{{catchphrase}}" $.Site.Params.catchphrase -}}
+    <p class="footer-copyright">{{ safeHTML $text }}</p>
+</footer>
+{{- end -}}

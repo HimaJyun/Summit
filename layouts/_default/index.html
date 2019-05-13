@@ -1,0 +1,7 @@
+{{ define "main" }}
+<ol class="contents-breadcrumb"><li>{{.LinkTitle}}</li></ol>
+<article {{- with .File }} id="post-{{ .UniqueID }}"{{ end }}>
+    {{- partial "snippets/contents.html" . -}}
+</article>
+{{- partial "snippets/page_info.html" . -}}
+{{ end }}

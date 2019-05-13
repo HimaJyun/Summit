@@ -1,0 +1,29 @@
+{{- $is404 := (eq .Kind "404") -}}
+
+{{- .Page.Scratch.Set "title" "" -}}
+{{- with .Title -}}
+    {{- $.Page.Scratch.Add "title" (printf "%s | " .) -}}
+{{- end -}}
+{{- .Page.Scratch.Add "title" .Site.Title -}}
+
+{{- if or (eq .Kind "taxonomy") (eq .Kind "taxonomyTerm") -}}
+    {{- .Page.Scratch.Set "ogDescription" (printf "%s list" .Title) -}}
+{{- else if not $is404 -}}
+    {{- $tmp := "" -}}
+    {{- with .Description -}}
+        {{- $tmp = . -}}
+    {{- else -}}
+        {{- $tmp = .Summary -}}
+    {{- end -}}
+
+    {{- .Page.Scratch.Set "ogDescription" $tmp -}}
+    {{- if (.Param "outDescription" | default true) -}}
+        {{- .Page.Scratch.Set "description" $tmp -}}
+    {{- end -}}
+{{- end -}}
+
+{{- if (.Param "noindex" | default false ) -}}
+    {{- .Page.Scratch.Set "robots" "noindex" -}}
+{{- end -}}
+
+{{- partial "summit/variable.html" . -}}

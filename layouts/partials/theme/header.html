@@ -1,0 +1,18 @@
+<header class="header">
+    <div class="header-title">
+        <p class="header-title-sitename"><a href="{{.Site.BaseURL}}">{{ .Site.Title }}</a></p>
+        <p class="header-title-catchphrase">{{ .Site.Params.catchphrase }}</p>
+    </div>
+    {{- with .Site.Params.navigation.header -}}
+    <input id="header-drawer" class="header-drawer" type="checkbox">
+    <label class="header-drawer-button" for="header-drawer">MENU</label>
+    <nav class="header-navi">
+        <ul class="header-navi-menu">
+        {{- range . -}}
+            {{- $value := (partial "snippets/menu_item.html" (dict "site" $.Site "map" .)) -}}
+            <li><a href="{{ $value.link }}">{{ $value.text }}</a></li>
+        {{- end -}}
+        </ul>
+    </nav>
+    {{- end -}}
+</header>

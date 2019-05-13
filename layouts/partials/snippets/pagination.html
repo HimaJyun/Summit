@@ -1,0 +1,40 @@
+{{- $pag := $.Paginator -}}
+{{- if gt $pag.TotalPages 1 -}}
+<nav>
+    <ul class="contents-pagination">
+        {{- if $pag.HasPrev -}}
+            <li class="contents-pagination-prev"><a href="{{ $pag.Prev.URL }}" aria-label="Previous"><span aria-hidden="true">&laquo; {{ .Site.Data.localize.prev | default "Prev" }}</span></a></li>
+        {{- end -}}
+
+        {{- if and $pag.First (gt $pag.PageNumber 2) -}}
+            <li class="contents-pagination-page"><a href="{{ $pag.First.URL }}">1</a></li>
+        {{- end -}}
+
+        {{- $omitted := false -}}
+        {{- $start := sub $pag.PageNumber 1 -}}
+        {{- $end := add $pag.PageNumber 1 -}}
+
+        {{- range $pag.Pagers -}}
+            {{- if and (ge .PageNumber $start) (le .PageNumber $end) -}}
+                {{- $omitted = false -}}
+                {{- if eq . $pag -}}
+                    <li class="contents-pagination-current"><span class="contents-pagination-text">{{ .PageNumber }}</span></li>
+                {{- else -}}
+                    <li class="contents-pagination-page"><a href="{{ .URL }}">{{ .PageNumber }}</a></li>
+                {{- end -}}
+            {{- else if and (not $omitted) (ne .PageNumber 1) (ne .PageNumber $pag.TotalPages) -}}
+                {{- $omitted = true -}}
+                <li class="contents-pagination-omitted"><span class="contents-pagination-text">&hellip;</span></li>
+            {{- end -}}
+        {{- end -}}
+
+        {{- if and $pag.Last (lt $pag.PageNumber (sub $pag.TotalPages 1)) -}}
+            <li class="contents-pagination-page"><a href="{{ $pag.Last.URL }}">{{ $pag.TotalPages }}</a></li>
+        {{- end -}}
+
+        {{- if $pag.HasNext -}}
+            <li class="contents-pagination-next"><a href="{{ $pag.Next.URL }}" aria-label="Next"><span aria-hidden="true">{{ .Site.Data.localize.next | default "Next" }} &raquo;</span></a></li>
+        {{- end -}}
+    </ul>
+</nav>
+{{- end -}}

@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{- partial "snippets/breadcrumb.html" . -}}
+<article {{- with .File }} id="post-{{ .UniqueID }}"{{ end }}>
+    {{- partial "snippets/contents.html" . -}}
+</article>
+{{- partial "snippets/page_info.html" . -}}
+{{ end }}

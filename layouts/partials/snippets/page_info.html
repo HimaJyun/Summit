@@ -1,0 +1,81 @@
+{{ $localize :=  $.Site.Data.localize }}
+<div class="contents-info">
+    {{- $author := "Anonymous" -}}
+    {{- with .GitInfo -}}
+        {{- $author = .AuthorName -}}
+    {{- end -}}
+    {{- with (.Param "author") -}}
+        {{- $author = . -}}
+    {{- end -}}
+    <div class="contents-info-author vcard author">
+        <span class="contents-info-author-text">{{ $localize.author | default "Author" }}:&nbsp;</span>{{- /*remove space*/ -}}
+        <span class="contents-info-author-value fn">{{$author}}</span>
+    </div>
+
+    {{- $ps := .PublishDate.Format "2006-01-02" -}}
+    {{- $pl := .PublishDate.Format "2006-01-02T15:04:05-0700" -}}
+    {{- $us := .Lastmod.Format "2006-01-02" -}}
+    {{- $ul := .Lastmod.Format "2006-01-02T15:04:05-0700" -}}
+    {{- $updated := ne $ps $us -}}
+    <div class="contents-info-published">
+        {{- $class := "updated" -}}
+        {{- if $updated -}}
+            {{- $class = "published" -}}
+        {{- end -}}
+        <span class="contents-info-published-text">{{ $localize.published | default "Published" }}:&nbsp;</span>{{- /**/ -}}
+        {{- printf `<time class="contents-info-published-value date %s" datetime="%s">%s</time>` $class $pl $ps | safeHTML -}}
+    </div>
+    {{- if $updated -}}
+    <div class="contents-info-updated">
+        <span class="contents-info-updated-text">{{ $localize.updated | default "Updated" }}:&nbsp;</span>{{- /**/ -}}
+        {{- printf `<time class="contents-info-updated-value date updated" datetime="%s">%s</time>` $ul $us| safeHTML -}}
+    </div>
+    {{- end -}}
+
+    {{- with .Params.categories -}}
+    <div class="contents-info-categorys">
+        <span class="contents-info-categorys-text">{{ $localize.category | default "Category" }}:&nbsp;</span>{{- /**/ -}}
+        <span class="contents-info-categorys-value">
+        {{ $categories := ($localize.categories | default dict) }}
+        {{- range . -}}
+            <a rel="tag" href="{{ printf "/categories/%s/" (urlize .) | absURL }}">{{ index $categories . | default . }}</a>&#32;
+        {{- end -}}
+        </span>
+    </div>
+    {{- end -}}
+
+    {{- with .Params.tags -}}
+        <div class="contents-info-tags">
+            <span class="contents-info-tags-text">{{ $localize.tag | default "Tag" }}:&nbsp;</span>{{- /**/ -}}
+            <span class="contents-info-tags-value">
+            {{ $tags := ($localize.tags | default dict) }}
+            {{- range . -}}
+                <a rel="tag" href="{{ printf "/tags/%s/" (urlize .) | absURL }}">{{ index $tags . | default . }}</a>&#32;
+            {{- end -}}
+            </span>
+        </div>
+    {{- end -}}
+
+    {{- if .GitInfo -}}
+        {{- with .Site.Params.pageinfo.commit -}}
+            <div class="contents-info-commit">
+                <span class="contents-info-commit-text">{{ $localize.commit | default "Commit" }}:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-commit-value">{{ replace . "{{hash}}" $.GitInfo.Hash | safeHTML }}</span>
+            </div>
+        {{- end -}}
+
+        {{- with .Site.Params.pageinfo.change -}}
+            <div class="contents-info-change">
+                <span class="contents-info-change-text">{{ $localize.change | default "Change" }}:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-change-value">{{ replace . "{{file}}" $.File.Path | safeHTML }}</span>
+            </div>
+        {{- end -}}
+
+        {{- if (.Site.Params.pageinfo.subject | default false) -}}
+            <div class="contents-info-subject">
+                <span class="contents-info-subject-text">{{ $localize.subject| default "Subject" }}:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-subject-value">{{.GitInfo.Subject}}</span>
+            </div>
+        {{- end -}}
+    {{- end -}}
+</div>
