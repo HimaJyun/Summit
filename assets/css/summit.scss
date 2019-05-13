@@ -35,11 +35,51 @@ body {
         }
     }
 
-    &-navi ul {
+    // メニュー本体
+    @mixin header-navi-item {
         display: flex;
-        list-style: none;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: #fff;
         height: 4rem;
         background-color: #777;
+    }
+
+    &-drawer {
+        display: none;
+    }
+
+    &-drawer-button {
+        @include header-navi-item;
+        @include not-sp {
+            display: none;
+        }
+    }
+
+    @include only-sp {
+        &-navi {
+            //height:auto;をtransitionするのはつらい。
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease-in-out;
+            // ドロワーボタンをチェックしたら表示する
+            #header-drawer:checked ~ & {
+                transform: scaleY(1);
+            }
+        }
+    }
+
+    &-navi-menu {
+        display: flex;
+        @include only-sp {
+            flex-direction: column;
+            width: 100%;
+            // absoluteを指定するとボタンをクリックしてもコンテンツが下がらなくなる
+            position: absolute;
+        }
+
+        list-style: none;
         padding: 0;
         li {
             margin: 0;
@@ -48,17 +88,15 @@ body {
             &:last-child {
                 border-right: 0;
             }
+            @include only-sp {
+                border: 0 {
+                    top: #fff 0.1rem solid;
+                }
+            }
         }
         a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            @include header-navi-item;
             text-decoration: none;
-            font-weight: bold;
-            height: 100%;
-        }
-        a, a:visited {
-            color: #fff;
         }
         a:hover {
             color: #999;
