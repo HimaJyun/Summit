@@ -1,0 +1,31 @@
+{{ define "main" }}
+{{- partial "snippets/breadcrumb.html" . -}}
+<article {{- with .File }} id="post-{{ .UniqueID }}"{{ end }}>
+    {{- $localize := .Site.Data.localize }}
+
+    {{- $title := .Title -}}
+    {{- $term := dict -}}
+    {{- if eq .Type "tags" -}}
+        {{- $title = $localize.tagPostList | default .Title -}}
+        {{- $term = $localize.tags | default dict -}}
+    {{- else if eq .Type "categories" -}}
+        {{- $title = $localize.categoryPostList | default .Title -}}
+        {{- $term = $localize.categories | default dict -}}
+    {{- end -}}
+    {{- $title = replace $title "{{name}}" (index $term .Name | default .Name) -}}
+
+    <h1 class="contents-title entry-title">{{$title}}</h1>
+
+    <div class="contents-postlist">
+    {{- range (.Paginate .Data.Pages.ByPublishDate.Reverse 10).Pages }}
+        <article class="contents-postlist-item">
+            <h2 class="contents-postlist-item-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <p class="contents-postlist-item-summary">{{ .Summary }}...<br>
+            <a class="contents-postlist-item-readmore" href="{{ .Permalink }}">{{- .Site.Data.localize.readmore | default "Read more ->" -}}</a></p>
+        </article>
+    {{- end }}
+    </div>
+
+    {{- partial "snippets/pagination.html" . -}}
+</article>
+{{ end }}

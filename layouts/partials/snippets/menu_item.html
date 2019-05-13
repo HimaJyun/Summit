@@ -1,16 +1,19 @@
-{{- /* {{ partial "snippets/menu_item.html" (dict "Site" $.Site "item" item "result" newScratch ) }} */ -}}
+{{- /* {{ partial "snippets/menu_item.html" (dict "site" $.Site "map" map) }} */ -}}
+{{- $text := "" -}}
+{{- $link := "" -}}
 
-{{- with .item.page -}}
-    {{- with $.Site.GetPage . -}}
-        {{- $.result.Set "text" .LinkTitle -}}
-        {{- $.result.Set "link" .Permalink -}}
+{{- with .map.link -}}
+    {{- $link = . -}}
+{{- end -}}
+
+{{- with .map.page -}}
+    {{- with $.site.GetPage . -}}
+        {{- $text = .LinkTitle -}}
+        {{- $link = .Permalink -}}
     {{- end -}}
 {{- end -}}
 
-{{- with .item.text -}}
-    {{- $.result.Set "text" . -}}
+{{- with .map.text -}}
+    {{- $text = . -}}
 {{- end -}}
-
-{{- with .item.link -}}
-    {{- $.result.Set "link" . -}}
-{{- end -}}
+{{- return (dict "text" $text "link" $link) -}}

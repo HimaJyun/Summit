@@ -8,7 +8,7 @@ description = "Simple Ultimate Minimal AMiT"
 homepage = "https://amit.jyn.jp/"
 tags = []
 features = []
-min_version = "0.54.0"
+min_version = "0.55.5"
 
 [author]
   name = "HimaJyun"

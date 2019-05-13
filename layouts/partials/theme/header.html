@@ -6,12 +6,11 @@
     {{- with .Site.Params.navigation.header -}}
     <input id="header-drawer" class="header-drawer" type="checkbox">
     <label class="header-drawer-button" for="header-drawer">MENU</label>
-    {{- $tmp := newScratch -}}
     <nav class="header-navi">
         <ul class="header-navi-menu">
         {{- range . -}}
-            {{- partial "snippets/menu_item.html" (dict "Site" $.Site "item" . "result" $tmp) -}}
-            <li><a href="{{ $tmp.Get "link" }}">{{ $tmp.Get "text" }}</a></li>
+            {{- $value := (partial "snippets/menu_item.html" (dict "site" $.Site "map" .)) -}}
+            <li><a href="{{ $value.link }}">{{ $value.text }}</a></li>
         {{- end -}}
         </ul>
     </nav>

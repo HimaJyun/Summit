@@ -1,6 +1,5 @@
 {{- partial "summit/sidebar_before.html" . -}}
 {{- with .Site.Params.navigation.sidebar -}}
-{{- $tmp := newScratch -}}
 <nav class="sidebar-navi">
     <ul>
     {{- range . -}}
@@ -8,8 +7,8 @@
             <span class="sidebar-item-title">{{ .title }}</span>
             <ul class="sidebar-item-link">
                 {{- range .item -}}
-                    {{- partial "snippets/menu_item.html" (dict "Site" $.Site "item" . "result" $tmp) -}}
-                    <li><a href="{{ $tmp.Get "link" }}">{{ $tmp.Get "text" }}</a></li>
+                    {{- $value := (partial "snippets/menu_item.html" (dict "site" $.Site "map" .)) -}}
+                    <li><a href="{{ $value.link }}">{{ $value.text }}</a></li>
                 {{- end -}}
             </ul>
         </li>

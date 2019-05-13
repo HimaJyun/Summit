@@ -1,3 +1,4 @@
+{{ $localize :=  $.Site.Data.localize }}
 <div class="contents-info">
     {{- $author := "Anonymous" -}}
     {{- with .GitInfo -}}
@@ -7,7 +8,7 @@
         {{- $author = . -}}
     {{- end -}}
     <div class="contents-info-author vcard author">
-        <span class="contents-info-author-text">Author:&nbsp;</span>{{- /*remove space*/ -}}
+        <span class="contents-info-author-text">{{ $localize.author | default "Author" }}:&nbsp;</span>{{- /*remove space*/ -}}
         <span class="contents-info-author-value fn">{{$author}}</span>
     </div>
 
@@ -21,52 +22,58 @@
         {{- if $updated -}}
             {{- $class = "published" -}}
         {{- end -}}
-        <span class="contents-info-published-text">Published:&nbsp;</span>{{- /**/ -}}
+        <span class="contents-info-published-text">{{ $localize.published | default "Published" }}:&nbsp;</span>{{- /**/ -}}
         {{- printf `<time class="contents-info-published-value date %s" datetime="%s">%s</time>` $class $pl $ps | safeHTML -}}
     </div>
     {{- if $updated -}}
     <div class="contents-info-updated">
-        <span class="contents-info-updated-text">Updated:&nbsp;</span>{{- /**/ -}}
+        <span class="contents-info-updated-text">{{ $localize.updated | default "Updated" }}:&nbsp;</span>{{- /**/ -}}
         {{- printf `<time class="contents-info-updated-value date updated" datetime="%s">%s</time>` $ul $us| safeHTML -}}
     </div>
     {{- end -}}
 
     {{- with .Params.categories -}}
     <div class="contents-info-categorys">
-        <span class="contents-info-categorys-text">Category:&nbsp;</span>{{- /**/ -}}
-        <span class="contents-info-categorys-value">{{- range . -}}
-            <a rel="tag" href="{{ printf "/categories/%s/" (urlize .) | absURL }}">{{ . }}</a>&#32;
-        {{- end -}}</span>
+        <span class="contents-info-categorys-text">{{ $localize.category | default "Category" }}:&nbsp;</span>{{- /**/ -}}
+        <span class="contents-info-categorys-value">
+        {{ $categories := ($localize.categories | default dict) }}
+        {{- range . -}}
+            <a rel="tag" href="{{ printf "/categories/%s/" (urlize .) | absURL }}">{{ index $categories . | default . }}</a>&#32;
+        {{- end -}}
+        </span>
     </div>
     {{- end -}}
 
     {{- with .Params.tags -}}
         <div class="contents-info-tags">
-            <span class="contents-info-tags-text">Tag:&nbsp;</span>{{- /**/ -}}
-            <span class="contents-info-tags-value">{{- range . -}}
-                <a rel="tag" href="{{ printf "/tags/%s/" (urlize .) | absURL }}">{{ . }}</a>&#32;
-            {{- end -}}</span>
+            <span class="contents-info-tags-text">{{ $localize.tag | default "Tag" }}:&nbsp;</span>{{- /**/ -}}
+            <span class="contents-info-tags-value">
+            {{ $tags := ($localize.tags | default dict) }}
+            {{- range . -}}
+                <a rel="tag" href="{{ printf "/tags/%s/" (urlize .) | absURL }}">{{ index $tags . | default . }}</a>&#32;
+            {{- end -}}
+            </span>
         </div>
     {{- end -}}
 
     {{- if .GitInfo -}}
         {{- with .Site.Params.pageinfo.commit -}}
             <div class="contents-info-commit">
-                <span class="contents-info-commit-text">Commit:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-commit-text">{{ $localize.commit | default "Commit" }}:&nbsp;</span>{{- /**/ -}}
                 <span class="contents-info-commit-value">{{ replace . "{{hash}}" $.GitInfo.Hash | safeHTML }}</span>
             </div>
         {{- end -}}
 
         {{- with .Site.Params.pageinfo.change -}}
             <div class="contents-info-change">
-                <span class="contents-info-change-text">Change:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-change-text">{{ $localize.change | default "Change" }}:&nbsp;</span>{{- /**/ -}}
                 <span class="contents-info-change-value">{{ replace . "{{file}}" $.File.Path | safeHTML }}</span>
             </div>
         {{- end -}}
 
         {{- if (.Site.Params.pageinfo.subject | default false) -}}
             <div class="contents-info-subject">
-                <span class="contents-info-subject-text">Subject:&nbsp;</span>{{- /**/ -}}
+                <span class="contents-info-subject-text">{{ $localize.subject| default "Subject" }}:&nbsp;</span>{{- /**/ -}}
                 <span class="contents-info-subject-value">{{.GitInfo.Subject}}</span>
             </div>
         {{- end -}}
