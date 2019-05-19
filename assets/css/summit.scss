@@ -1,6 +1,10 @@
 @charset "utf-8";
 @import "_reset.scss";
 
+a {
+    text-decoration: none;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -9,7 +13,7 @@ body {
         margin-top: auto;
     }
 
-    background-color: #f5f5f5;
+    background-color: #f5f2f0;
 }
 
 .header {
@@ -155,20 +159,34 @@ $contents-margin: 5rem;
         border-bottom: solid 0.1rem #aaa;
         margin-bottom: 0.5em;
     }
-    p,ul,ol,dl,pre,blockquote {
-		margin-bottom: 1em;
+    p,ul,ol,dl,pre,blockquote,img {
+        margin-bottom: 1em;
+    }
+    li p {
+        margin-bottom: 0;
+    }
+    p img {
+        margin-bottom: 0;
     }
     table {
+        word-break: break-word;
         border-collapse: collapse;
         margin-bottom: 1em;
-        word-break: break-all;
-        th,td {
-            padding: 0.2rem 0.7rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+
+        &,td,th {
+            border: 0.1rem solid #ccc;
         }
-        th {
-            background-color: #ebebeb;
+        td,th {
+            padding: 0.5rem;
+        }
+        td :last-child {
+            margin-bottom: 0;
+        }
+        thead tr {
+            background-color: #f3f3f3;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
     }
 
@@ -210,20 +228,11 @@ $contents-margin: 5rem;
             ul {
                 padding: 0;
                 margin: 0;
-            }
-            li {
-                list-style-type: decimal;
-                margin-left: 1.5em;
-            }
-            // 兄弟liを持たない奴からmarginやlist-styleを消して存在しない事にする
-            ul li:only-child {
                 list-style: none;
-                margin-left: 0;
-                // そのままだと中身のあるliまで消えるので元に戻す
-                a + ul li {
-                    list-style-type: decimal;
-                    margin-left: 1.5em;
-                }
+            }
+            ul ul {
+                list-style: decimal;
+                margin-left: 1.5em;
             }
         }
     }
