@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{- partial "snippets/breadcrumb.html" . -}}
+{{- partialCached "summit/breadcrumb_after.html" . -}}
 <article {{- with .File }} id="post-{{ .UniqueID }}"{{ end }}>
     {{- partial "snippets/contents.html" . -}}
 </article>

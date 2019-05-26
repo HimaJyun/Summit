@@ -87,7 +87,7 @@ body {
         padding: 0;
         li {
             margin: 0;
-            flex-grow: 1;
+            width: 100%;
             border-right: #fff 0.1rem solid;
             &:last-child {
                 border-right: 0;
@@ -168,6 +168,12 @@ $contents-margin: 5rem;
     p img {
         margin-bottom: 0;
     }
+    p code {
+        // inline code
+        padding: 0 0.2em;
+        border-radius: 0.3rem;
+        background-color: #f3f3f3;
+    }
     table {
         word-break: break-word;
         border-collapse: collapse;
@@ -177,13 +183,16 @@ $contents-margin: 5rem;
             border: 0.1rem solid #ccc;
         }
         td,th {
-            padding: 0.5rem;
+            padding: 0.2rem 0.5rem;
         }
         td :last-child {
             margin-bottom: 0;
         }
         thead tr {
             background-color: #f3f3f3;
+            th {
+                background-color: #ebebeb;
+            }
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -294,6 +303,15 @@ $contents-margin: 5rem;
                 &::before {
                     content: ">";
                     padding-right: 0.5rem;
+                }
+            }
+        }
+        &-contents {
+            padding: 0.5rem 1rem;
+            p {
+                margin-bottom: 0.3rem;
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
         }

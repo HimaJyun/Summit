@@ -1,5 +1,6 @@
 {{ define "main" }}
 <ol class="contents-breadcrumb"><li>{{.LinkTitle}}</li></ol>
+{{- partialCached "summit/breadcrumb_after.html" . -}}
 <article {{- with .File }} id="post-{{ .UniqueID }}"{{ end }}>
     {{- partial "snippets/contents.html" . -}}
 </article>
