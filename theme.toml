@@ -2,7 +2,7 @@
 # See https://github.com/gohugoio/hugoThemes#themetoml for an example
 
 name = "Summit"
-license = "GPLv3"
+license = "zlib"
 licenselink = "https://github.com/HimaJyun/Summit/blob/master/LICENSE"
 description = "Simple Ultimate Minimal AMiT"
 homepage = "https://amit.jyn.jp/"
