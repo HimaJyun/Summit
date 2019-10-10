@@ -249,6 +249,12 @@ $contents-margin: 5rem;
         border-top: 0.1rem dashed #aaa;
         margin-top: 0.5em;
         padding-top: 0.5em;
+        // コミットのハッシュ値は長くなりがちなので省略する
+        &-commit {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
 }
 
