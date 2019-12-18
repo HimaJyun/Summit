@@ -235,13 +235,9 @@ $contents-margin: 5rem;
         }
         #TableOfContents {
             ul {
-                padding: 0;
+                padding-left: 1.5em;
                 margin: 0;
-                list-style: none;
-            }
-            ul ul {
                 list-style: decimal;
-                margin-left: 1.5em;
             }
         }
     }
