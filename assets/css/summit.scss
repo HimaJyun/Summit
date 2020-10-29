@@ -162,8 +162,8 @@ $contents-margin: 5rem;
     p,ul,ol,dl,pre,blockquote,img {
         margin-bottom: 1em;
     }
-    li p:only-of-type {
-        margin-bottom: 0;
+    li p + ul {
+        margin-top: -1em; // pとulが隣接してる時(ulの説明にpを使ってるパターン)ではマージンがない方が自然なのでマイナスで打ち消す
     }
     p img {
         margin-bottom: 0;
