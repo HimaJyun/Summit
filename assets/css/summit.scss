@@ -162,6 +162,9 @@ $contents-margin: 5rem;
     p,ul,ol,dl,pre,blockquote,img {
         margin-bottom: 1em;
     }
+    li p:only-of-type {
+        margin-bottom: 0;
+    }
     p img {
         margin-bottom: 0;
     }
