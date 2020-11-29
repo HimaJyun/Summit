@@ -155,9 +155,12 @@ $contents-margin: 5rem;
         border-radius: 0;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3 {
         border-bottom: solid 0.1rem #aaa;
         margin-bottom: 0.5em;
+    }
+    h4, h5, h6 {
+        font-weight: bold;
     }
     p,ul,ol,dl,pre,blockquote,img {
         margin-bottom: 1em;
